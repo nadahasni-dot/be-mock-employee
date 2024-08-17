@@ -57,8 +57,8 @@ model Job {
   id           Int      @id @default(autoincrement())
   Biodata      Biodata? @relation(fields: [biodataId], references: [id])
   biodataId    Int?
-  company_name String   @db.VarChar(20)
-  position     String   @db.VarChar(20)
+  company_name String   @db.VarChar(100)
+  position     String   @db.VarChar(100)
   last_income  Int
   year_start   String   @db.VarChar(5)
   year_end     String   @db.VarChar(5)
