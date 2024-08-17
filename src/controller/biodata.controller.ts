@@ -86,7 +86,7 @@ const bodyUpdateBiodataValidator = [
     .notEmpty()
     .isLength({ max: 150 }),
   body("birth_date", "birth_date is required").notEmpty(),
-  body("gender", "gender is required").notEmpty().isLength({ max: 10 }),
+  body("gender", "gender is required").notEmpty().isLength({ max: 50 }),
   body("religion", "religion is required").notEmpty().isLength({ max: 10 }),
   body("blood_type", "blood_type is required").notEmpty().isLength({ max: 2 }),
   body("status", "status is required").notEmpty().isLength({ max: 50 }),
