@@ -5,6 +5,7 @@ import {
   biodataRouter,
   educationRouter,
   jobRouter,
+  trainingRouter,
 } from "./routes";
 
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(`${apiUrl}/auth`, authRouter);
 app.use(`${apiUrl}/biodata`, biodataRouter);
 app.use(`${apiUrl}/education`, educationRouter);
 app.use(`${apiUrl}/job`, jobRouter);
+app.use(`${apiUrl}/training`, trainingRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello, TypeScript Express!");

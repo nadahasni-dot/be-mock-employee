@@ -45,7 +45,7 @@ model Training {
   id             Int      @id @default(autoincrement())
   Biodata        Biodata? @relation(fields: [biodataId], references: [id])
   biodataId      Int?
-  course_name    String   @db.VarChar(10)
+  course_name    String   @db.VarChar(150)
   is_certificate Boolean
   year_start     String   @db.VarChar(5)
   year_end       String   @db.VarChar(5)

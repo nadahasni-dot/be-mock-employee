@@ -27,4 +27,10 @@ export const MESSAGE = {
     SUCCESS_UPDATE: "Success update job",
     SUCCESS_DELETE: "Success delete job",
   },
+  TRAINING: {
+    SUCCESS_GET: "Success get training",
+    SUCCESS_CREATE: "Success create training",
+    SUCCESS_UPDATE: "Success update training",
+    SUCCESS_DELETE: "Success delete training",
+  },
 };
