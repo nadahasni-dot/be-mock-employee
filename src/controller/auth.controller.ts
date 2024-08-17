@@ -1,7 +1,21 @@
 import { Request, Response } from "express";
-import { validationResult, matchedData } from "express-validator";
+import { validationResult, matchedData, body } from "express-validator";
 import { MESSAGE } from "../constants/message";
 import { authenticateUser, signUpNewUser } from "../service/auth.service";
+
+const authValidation = [
+  body("email", "Email must be valid email and max 50 characters long")
+    .isEmail()
+    .isLength({ max: 50 })
+    .notEmpty()
+    .trim()
+    .escape(),
+  body("password", "Password must be 6 - 16 characters long")
+    .isLength({ min: 6, max: 16 })
+    .notEmpty()
+    .trim()
+    .escape(),
+];
 
 const signUp = async (req: Request, res: Response) => {
   const validation = validationResult(req);
@@ -39,4 +53,4 @@ const signIn = async (req: Request, res: Response) => {
   return res.status(result.code).send(result);
 };
 
-export { signUp, signIn };
+export { signUp, signIn, authValidation };

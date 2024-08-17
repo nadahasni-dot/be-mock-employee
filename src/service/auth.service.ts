@@ -2,6 +2,7 @@ import * as bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { MESSAGE } from "../constants/message";
 import { getUserByEmail, insertUser } from "../repository/user.repository";
+import { createBiodata } from "../repository/biodata.repository";
 
 const SALT_ROUND = process.env.SALT_ROUND || "10";
 const JWT_SECRET = process.env.JWT_SECRET || "SECRET";
@@ -34,6 +35,10 @@ const signUpNewUser = async ({ email, password }: SignUpParam) => {
     const newUser = await insertUser({
       email,
       password: hashedPassword,
+    });
+
+    await createBiodata({
+      userId: newUser.id,
     });
 
     return {

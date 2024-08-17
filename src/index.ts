@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
-import { authRouter } from "./routes";
+import { authRouter, biodataRouter } from "./routes";
 
 dotenv.config();
 
@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.use(`${apiUrl}/auth`, authRouter);
+app.use(`${apiUrl}/biodata`, biodataRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello, TypeScript Express!");
