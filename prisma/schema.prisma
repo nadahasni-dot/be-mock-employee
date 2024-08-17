@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique @db.VarChar(50)
+  password   String   @db.VarChar(255)
+  role       Role     @default(USER)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  Biodata    Biodata?
+}
+
+model Education {
+  id             Int      @id @default(autoincrement())
+  Biodata        Biodata? @relation(fields: [biodataId], references: [id])
+  biodataId      Int?
+  level          String   @db.VarChar(10)
+  institute      String   @db.VarChar(150)
+  major          String   @db.VarChar(50)
+  year_graduated String   @db.VarChar(5)
+  grade          String   @db.VarChar(5)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+}
+
+model Training {
+  id             Int      @id @default(autoincrement())
+  Biodata        Biodata? @relation(fields: [biodataId], references: [id])
+  biodataId      Int?
+  course_name    String   @db.VarChar(150)
+  is_certificate Boolean
+  year_start     String   @db.VarChar(5)
+  year_end       String   @db.VarChar(5)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+}
+
+model Job {
+  id           Int      @id @default(autoincrement())
+  Biodata      Biodata? @relation(fields: [biodataId], references: [id])
+  biodataId    Int?
+  company_name String   @db.VarChar(100)
+  position     String   @db.VarChar(100)
+  last_income  Int
+  year_start   String   @db.VarChar(5)
+  year_end     String   @db.VarChar(5)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+}
+
+model Biodata {
+  id                      Int         @id @default(autoincrement())
+  user                    User        @relation(fields: [userId], references: [id])
+  userId                  Int         @unique
+  educations              Education[]
+  trainings               Training[]
+  jobs                    Job[]
+  position                String?     @db.VarChar(100)
+  name                    String?     @db.VarChar(150)
+  birth_place             String?     @db.VarChar(100)
+  birth_date              DateTime?
+  gender                  String?     @db.VarChar(30)
+  religion                String?     @db.VarChar(10)
+  blood_type              String?     @db.VarChar(2)
+  status                  String?     @db.VarChar(50)
+  address_idcard          String?     @db.VarChar(255)
+  address_live            String?     @db.VarChar(255)
+  phone                   String?     @db.VarChar(20)
+  phone_relation          String?     @db.VarChar(20)
+  skills                  String?     @db.Text
+  is_accept_all_placement Boolean?
+  expected_income         Int?
+  created_at              DateTime    @default(now())
+  updated_at              DateTime    @updatedAt
+}
