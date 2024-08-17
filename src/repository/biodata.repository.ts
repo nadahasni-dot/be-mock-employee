@@ -89,6 +89,30 @@ const getBiodataById = async (biodataId: number) => {
   });
 };
 
+const deleteBiodataById = async (biodataId: number) => {
+  const detail = await prisma.biodata.findFirst({
+    where: {
+      id: biodataId,
+    },
+  });
+
+  if (detail) {
+    await prisma.biodata.delete({
+      where: {
+        id: detail.id,
+      },
+    });
+
+    return await prisma.user.delete({
+      where: {
+        id: detail.userId,
+      },
+    });
+  }
+
+  return null;
+};
+
 const getBiodataByUserId = async (userId: number) => {
   return await prisma.biodata.findFirst({
     include: {
@@ -109,5 +133,5 @@ export {
   getBiodataById,
   getBiodataByUserId,
   updateBiodata,
-  deleteBiodata,
+  deleteBiodataById,
 };

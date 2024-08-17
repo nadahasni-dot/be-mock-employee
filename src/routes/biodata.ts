@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   bodyUpdateBiodataValidator,
+  deleteBiodataDetail,
   getAllBiodata,
   getBiodataDetail,
   getBiodataDetailByUser,
@@ -32,6 +33,12 @@ router.put(
   ...paramGetBiodataDetailValidator,
   ...bodyUpdateBiodataValidator,
   updateBiodataDetail
+);
+router.delete(
+  "/admin/:id",
+  isAdminOnly,
+  ...paramGetBiodataDetailValidator,
+  deleteBiodataDetail
 );
 
 // USER ACCESS

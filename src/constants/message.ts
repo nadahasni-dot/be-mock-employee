@@ -13,7 +13,7 @@ export const MESSAGE = {
   BIODATA: {
     SUCCESS_GET: "Success get biodata",
     SUCCESS_UPDATE: "Success update biodata",
-    SUCCESS_DELEE: "Success delete user and biodata",
+    SUCCESS_DELETE: "Success delete user and biodata",
   },
   EDUCATION: {
     SUCCESS_GET: "Success get education",

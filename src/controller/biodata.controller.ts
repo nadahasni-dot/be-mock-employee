@@ -14,6 +14,7 @@ import {
   getDetailByUser,
   updateDetailBiodataByUser,
   updateDetailBiodata,
+  deleteDetail,
 } from "../service/biodata.service";
 import { CustomRequest } from "../middleware/auth.middleware";
 import { CreateBiodataParam } from "../repository/biodata.repository";
@@ -62,6 +63,23 @@ const getBiodataDetail = async (req: Request, res: Response) => {
   const { id } = matchedData(req);
 
   const result = await getDetail(Number(id));
+  return res.status(result.code).send(result);
+};
+
+const deleteBiodataDetail = async (req: Request, res: Response) => {
+  const validation = validationResult(req);
+  if (!validation.isEmpty()) {
+    return res.status(400).send({
+      code: 400,
+      success: false,
+      message: MESSAGE.INVALID_INPUT,
+      errors: validation.array(),
+    });
+  }
+
+  const { id } = matchedData(req);
+
+  const result = await deleteDetail(Number(id));
   return res.status(result.code).send(result);
 };
 
@@ -161,4 +179,5 @@ export {
   bodyUpdateBiodataValidator,
   queryGetAllBiodataValidator,
   paramGetBiodataDetailValidator,
+  deleteBiodataDetail,
 };
