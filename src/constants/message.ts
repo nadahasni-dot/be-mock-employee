@@ -17,6 +17,7 @@ export const MESSAGE = {
   },
   EDUCATION: {
     SUCCESS_GET: "Success get education",
+    SUCCESS_CREATE: "Success create education",
     SUCCESS_UPDATE: "Success update education",
     SUCCESS_DELETE: "Success delete education",
   },

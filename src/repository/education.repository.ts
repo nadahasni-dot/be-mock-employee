@@ -8,7 +8,9 @@ export type CreateEducationParam = {
   grade: string;
 };
 
-export const createEducation = async (data: CreateEducationParam) => {
+export const createEducation = async (
+  data: CreateEducationParam & { biodataId: number }
+) => {
   return await prisma.education.create({
     data,
   });

@@ -1,10 +1,14 @@
 import { Router } from "express";
 import { isAuthenticated } from "../middleware/auth.middleware";
 import {
-  getEducationDetail,
   getEducationListByBiodata,
-  paramsgetEducationDetailByIdValidator,
   paramsGetEducationListByBiodataValidator,
+  getEducationDetail,
+  paramsGetEducationDetailByIdValidator,
+  createEducation,
+  paramsCreateEducationValidator,
+  updateEducation,
+  deleteEducation,
 } from "../controller/education.controller";
 
 const router = Router();
@@ -19,8 +23,31 @@ router.get(
 router.get(
   "/detail/:id",
   isAuthenticated,
-  ...paramsgetEducationDetailByIdValidator,
+  ...paramsGetEducationDetailByIdValidator,
   getEducationDetail
+);
+
+router.post(
+  "/:biodataId",
+  isAuthenticated,
+  ...paramsGetEducationListByBiodataValidator,
+  ...paramsCreateEducationValidator,
+  createEducation
+);
+
+router.put(
+  "/detail/:id",
+  isAuthenticated,
+  ...paramsGetEducationDetailByIdValidator,
+  ...paramsCreateEducationValidator,
+  updateEducation
+);
+
+router.delete(
+  "/detail/:id",
+  isAuthenticated,
+  ...paramsGetEducationDetailByIdValidator,
+  deleteEducation
 );
 
 export default router;
