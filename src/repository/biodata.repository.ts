@@ -1,7 +1,7 @@
 import { prisma } from "../../prisma/prisma.client";
 import { PagedRequestParam } from "../types/requests/biodata";
 
-type CreateBiodataParam = {
+export type CreateBiodataParam = {
   userId: number;
   position?: string;
   name?: string;
@@ -25,6 +25,21 @@ const createBiodata = async (data: CreateBiodataParam) => {
     data: {
       ...data,
     },
+  });
+};
+
+const updateBiodata = async (id: number, data: CreateBiodataParam) => {
+  return await prisma.biodata.update({
+    data,
+    where: {
+      id,
+    },
+  });
+};
+
+const deleteBiodata = async (id: number) => {
+  return await prisma.biodata.delete({
+    where: { id },
   });
 };
 
@@ -88,4 +103,11 @@ const getBiodataByUserId = async (userId: number) => {
   });
 };
 
-export { createBiodata, getListBiodata, getBiodataById, getBiodataByUserId };
+export {
+  createBiodata,
+  getListBiodata,
+  getBiodataById,
+  getBiodataByUserId,
+  updateBiodata,
+  deleteBiodata,
+};

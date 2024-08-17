@@ -12,5 +12,6 @@ export const MESSAGE = {
   },
   BIODATA: {
     SUCCESS_GET: "Success get biodata",
+    SUCCESS_UPDATE: "Success update biodata",
   },
 };

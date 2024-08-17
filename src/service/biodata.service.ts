@@ -3,6 +3,8 @@ import {
   getBiodataById,
   getListBiodata,
   getBiodataByUserId,
+  updateBiodata,
+  CreateBiodataParam,
 } from "../repository/biodata.repository";
 import { PagedRequestParam } from "../types/requests/biodata";
 
@@ -87,4 +89,80 @@ const getDetailByUser = async (id: number) => {
   }
 };
 
-export { getPagedBiodataList, getDetail, getDetailByUser };
+const updateDetailBiodata = async (
+  id: number,
+  data: CreateBiodataParam & { id: number }
+) => {
+  try {
+    const detail = await getBiodataById(id);
+
+    if (!detail) {
+      return {
+        code: 404,
+        success: false,
+        message: MESSAGE.NOT_FOUND,
+        detail,
+      };
+    }
+
+    const result = await updateBiodata(id, data);
+
+    return {
+      code: 200,
+      success: true,
+      message: MESSAGE.BIODATA.SUCCESS_UPDATE,
+      data: result,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      code: 500,
+      success: false,
+      message: MESSAGE.SERVER_ERROR,
+      data: null,
+    };
+  }
+};
+
+const updateDetailBiodataByUser = async (
+  id: number,
+  data: CreateBiodataParam
+) => {
+  try {
+    const detail = await getBiodataByUserId(id);
+
+    if (!detail) {
+      return {
+        code: 404,
+        success: false,
+        message: MESSAGE.NOT_FOUND,
+        detail,
+      };
+    }
+
+    const result = await updateBiodata(detail.id, data);
+
+    return {
+      code: 200,
+      success: true,
+      message: MESSAGE.BIODATA.SUCCESS_UPDATE,
+      data: result,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      code: 500,
+      success: false,
+      message: MESSAGE.SERVER_ERROR,
+      data: null,
+    };
+  }
+};
+
+export {
+  getPagedBiodataList,
+  getDetail,
+  getDetailByUser,
+  updateDetailBiodata,
+  updateDetailBiodataByUser,
+};

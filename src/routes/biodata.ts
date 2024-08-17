@@ -1,10 +1,13 @@
 import { Router } from "express";
 import {
+  bodyUpdateBiodataValidator,
   getAllBiodata,
   getBiodataDetail,
   getBiodataDetailByUser,
   paramGetBiodataDetailValidator,
   queryGetAllBiodataValidator,
+  updateBiodataDetail,
+  updateBiodataDetailByUser,
 } from "../controller/biodata.controller";
 import { isAdminOnly, isAuthenticated } from "../middleware/auth.middleware";
 
@@ -23,6 +26,13 @@ router.get(
   ...paramGetBiodataDetailValidator,
   getBiodataDetail
 );
+router.put(
+  "/admin/update/:id",
+  isAdminOnly,
+  ...paramGetBiodataDetailValidator,
+  ...bodyUpdateBiodataValidator,
+  updateBiodataDetail
+);
 
 // USER ACCESS
 router.get(
@@ -30,6 +40,12 @@ router.get(
   isAuthenticated,
   ...paramGetBiodataDetailValidator,
   getBiodataDetailByUser
+);
+router.put(
+  "/update",
+  isAuthenticated,
+  ...bodyUpdateBiodataValidator,
+  updateBiodataDetailByUser
 );
 
 export default router;
