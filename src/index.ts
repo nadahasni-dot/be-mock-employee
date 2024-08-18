@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import cors from "cors";
 import express, { Request, Response } from "express";
 import {
   authRouter,
@@ -15,6 +16,7 @@ const port = process.env.PORT || 3000;
 
 const apiUrl = "/api/v1";
 
+app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
